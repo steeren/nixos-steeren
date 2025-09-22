@@ -29,7 +29,7 @@
       hostname = "p2-nixos";
       system = "x86_64-linux";
       stateVersion = "25.05";
-      secrets = import ./.secrets.nix;
+      secrets = import ./secrets.nix;
     in
     {
       nixosConfigurations."${hostname}" = nixpkgs.lib.nixosSystem {
@@ -57,11 +57,12 @@
           home-manager.nixosModules.home-manager
 
           ./modules/system.nix
+
+          nvf.nixosModules.default # <— THIS wires NVF in
           ./modules/home.nix
           ./modules/profiles/laptop.nix
           # ./modules/profiles/desktop.nix
 
-          nvf.nixosModules.default # <— THIS wires NVF in
           (
             { ... }:
             {
@@ -69,8 +70,6 @@
               shell.aliases = {
                 nix-re-bld = "sudo nix flake update && sudo nixos-rebuild switch --flake .";
               };
-
-              # neovim.enable = true;
 
               docker.enable = true;
 
@@ -80,6 +79,9 @@
               gc.keepSystemGenerations = 5;
               gc.keepDays = 7;
               gc.pruneUserProfiles = true;
+
+              # flatpak.enable = true;
+              # minecraft.enable = true;
             }
           )
         ];

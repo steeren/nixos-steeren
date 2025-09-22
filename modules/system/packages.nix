@@ -24,7 +24,7 @@
     unzip
     direnv
 
-    baobab
+    baobab # Disk usage analyzer for GNOME
     # man-pages # For offline man pages
     # man-db    # For `man` command itself and `mandb`
 
@@ -40,6 +40,10 @@
     vscode # Visual Studio Code (requires allowUnfree = true if using Microsoft's build)
     playwright-driver
     nixfmt-rfc-style
+
+    stylua
+    typescript-language-server
+    typescript
 
     # Graphics and Media
     gimp # GNU Image Manipulation Program

@@ -15,6 +15,8 @@
       alias ll='ls -la -F --color=auto --group-directories-first'
       alias update-system='sudo nixos-rebuild switch --flake /etc/nixos#nixos'
 
+      alias nix-rb-flake='sudo nix flake update && sudo nixos-rebuild switch --flake .'
+
       # Add bun to PATH
       export BUN_INSTALL="$HOME/.bun"
       export PATH="$BUN_INSTALL/bin:$PATH"

@@ -28,6 +28,8 @@ in
         ./home/bash.nix
         ./home/direnv.nix
         ./home/laptop/monitors.nix
+
+        ./home/apps/neovim
       ];
 
       # Required: make sure state version is set once
