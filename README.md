@@ -29,4 +29,4 @@ modules/
 
 Where there is a clear distinction between "system" (standard flakes) and "home" which is everything "home-manager" related.
 
-This is by NO MEANS a fully functional, tried and tested setup. E.g. some packages have been observed to have no installed (curl, neovim), there are other packages currently on the system which are not defined in this flake. Probably a good explaination for that - but I don't have much of a clue about that I'm doing yet!!
+This is by NO MEANS a fully functional, tried and tested setup.
