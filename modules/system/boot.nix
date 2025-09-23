@@ -14,6 +14,9 @@
   # Allow NixOS to modify EFI variables for bootloader installation/updates
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # The resolution of the console. The following values are valid:
+  boot.loader.systemd-boot.consoleMode = "auto";
+
   # boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
 
   # Optional: Keep a few generations for easy rollback
