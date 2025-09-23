@@ -32,6 +32,7 @@
     firefox # Privacy-focused web browser
     google-chrome # Google Chrome (requires allowUnfree = true)
     # chromium        # Open-source base for Chrome
+    tor-browser
     thunderbird
 
     obsidian
