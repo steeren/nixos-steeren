@@ -14,7 +14,20 @@
   users.users.${specialArgs.username} = {
     # Use the passed nixosUsername argument
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [
+      "flatpak"
+      "disk"
+      "qemu"
+      "kvm"
+      "libvirtd"
+      "sshd"
+      "networkmanager"
+      "wheel"
+      "audio"
+      "video"
+      "libvirtd"
+      "root"
+    ];
     initialHashedPassword = specialArgs.passwordHash; # Use the passed passwordHash argument
 
     # shell = pkgs.zsh; # Set the default shell to Zsh
