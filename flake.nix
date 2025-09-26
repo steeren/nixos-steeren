@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
 
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,7 +24,8 @@
       self,
       nixpkgs,
       home-manager,
-      nvf,
+      nixos-hardware,
+      # nvf,
       ...
     }:
     let
@@ -53,12 +56,13 @@
           {
             system.stateVersion = stateVersion; # Did you read the comment?
           }
+          nixos-hardware.nixosModules.lenovo-thinkpad-p1
           # Import the Home Manager NixOS module first
           home-manager.nixosModules.home-manager
 
           ./modules/system.nix
 
-          nvf.nixosModules.default # <— THIS wires NVF in
+          # nvf.nixosModules.default # <— THIS wires NVF in
           ./modules/home.nix
           ./modules/profiles/laptop.nix
           # ./modules/profiles/desktop.nix

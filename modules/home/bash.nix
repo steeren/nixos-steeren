@@ -4,22 +4,28 @@
   programs.bash = {
     enable = true;
 
+    shellAliases = {
+      ls = "lsd --group-dirs=first";
+      ll = "ls -lh";
+      la = "ls -lha";
+      ".." = "cd ..";
+      "..." = "cd ../..";
+      vi = "nvim";
+      vim = "nvim";
+      cat = "bat";
+
+      update-system = "sudo nixos-rebuild switch --flake /etc/nixos/flake.nix#nixos";
+      "updt-n-rb" = "sudo nix flake update && sudo nixos-rebuild switch --flake .";
+      "rebuild" = "sudo nixos-rebuild switch --flake .";
+      "update" = "sudo nix flake update";
+    };
     initExtra = ''
       # Starship prompt
       eval "$(${pkgs.starship}/bin/starship init bash)"
 
       # Editor
-      export EDITOR=nano
-
-      # Aliases
-      alias ll='ls -la -F --color=auto --group-directories-first'
-      alias update-system='sudo nixos-rebuild switch --flake /etc/nixos#nixos'
-
-      alias nix-rb-flake='sudo nix flake update && sudo nixos-rebuild switch --flake .'
-
-      # Add bun to PATH
-      export BUN_INSTALL="$HOME/.bun"
-      export PATH="$BUN_INSTALL/bin:$PATH"
+      export EDITOR=nvim
+      export VISUAL=code
 
       # Bash completion
       if [ -f "${pkgs.bash-completion}/etc/bash_completion" ]; then

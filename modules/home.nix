@@ -27,9 +27,11 @@ in
         })
         ./home/bash.nix
         ./home/direnv.nix
-        ./home/laptop/monitors.nix
+        # commented out monitors because its always changing (by the system, then updates fail)
+        # ./home/laptop/monitors.nix
 
         ./home/apps/neovim
+        ./home/dconf.nix
       ];
 
       # Required: make sure state version is set once

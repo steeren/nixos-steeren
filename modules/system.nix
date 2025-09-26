@@ -23,7 +23,7 @@
 
     # apps/tools
     ./system/apps/playwright.nix
-    # ./system/flatpak.nix
+    ./system/flatpak.nix
     # ./system/apps/minecraft.nix
   ];
 }

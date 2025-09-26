@@ -1,14 +1,37 @@
 # gnome-desktop.nix
-{ config, pkgs, specialArgs, ... }:
 {
-  # Enable the Xorg server
-  services.xserver.enable = true;
+  config,
+  pkgs,
+  specialArgs,
+  ...
+}:
 
-  # Enable the GNOME Display Manager (GDM)
-  services.xserver.displayManager.gdm.enable = true;
+let
+  gnomeExts = with pkgs.gnomeExtensions; [
+    dash-to-dock
+  ];
+in
+{
+  services.xserver = {
+    # Enable the Xorg server
+    enable = true;
 
-  # Enable the GNOME Desktop Environment
-  services.xserver.desktopManager.gnome.enable = true;
+    displayManager.gdm = {
+
+      enable = true;
+      wayland = true; # Enable Wayland support in GDM
+    };
+
+    #To enable fractional scaling (ref: https://discourse.nixos.org/t/how-to-set-fractional-scaling-via-nix-configuration-for-gnome-wayland/56774/5)
+    desktopManager.gnome = {
+      enable = true;
+      extraGSettingsOverridePackages = [ pkgs.mutter ];
+      extraGSettingsOverrides = ''
+        [org.gnome.mutter]
+        experimental-features=['scale-monitor-framebuffer']
+      '';
+    };
+  };
 
   # Configure OpenGL drivers
   hardware.graphics.enable = true;
@@ -16,10 +39,13 @@
   # Enable XWayland
   programs.xwayland.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    displaylink
-    gnome-tweaks
-    dconf-editor
-    gnome-extension-manager
-  ];
+  environment.systemPackages =
+    with pkgs;
+    [
+      displaylink
+      gnome-tweaks
+      dconf-editor
+      gnome-extension-manager
+    ]
+    ++ gnomeExts;
 }

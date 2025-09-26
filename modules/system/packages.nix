@@ -23,6 +23,22 @@
     which
     unzip
     direnv
+    flatpak
+    dconf
+    jq
+    rsync
+    lsd # A modern replacement for `ls`
+    fd # A simple, fast and user-friendly alternative to `find`
+    ncdu # Disk usage analyzer with an ncurses interface
+    flameshot # Screenshot tool
+    fzf
+    bat # A cat(1) clone with syntax highlighting and Git integration
+
+    # Fonts
+    noto-fonts
+    noto-fonts-emoji
+    fira-code
+    nerd-fonts.fira-code
 
     baobab # Disk usage analyzer for GNOME
     # man-pages # For offline man pages
@@ -41,14 +57,21 @@
     vscode # Visual Studio Code (requires allowUnfree = true if using Microsoft's build)
     playwright-driver
     nixfmt-rfc-style
-
+    nodejs_24
+    git
     stylua
     typescript-language-server
     typescript
+    bash-completion
+    bashInteractive
+    prettierd
 
     # Graphics and Media
     gimp # GNU Image Manipulation Program
 
-    nodejs_24
+    dconf
+    starship # The minimal, blazing-fast, and infinitely customizable prompt for any shell
+
+    delta # A syntax-highlighting pager for git, diff, and grep output
   ];
 }
