@@ -33,6 +33,17 @@
     fzf
     bat # A cat(1) clone with syntax highlighting and Git integration
 
+    # Graphics and Media
+    gimp # GNU Image Manipulation Program
+    vlc # Versatile media player
+    yt-dlp # A youtube-dl fork with additional features and fixes
+    ffmpeg # A complete, cross-platform solution to record, convert and stream audio and video
+    imagemagick # A software suite to create, edit, compose, or convert bitmap images
+    gthumb # An image viewer and browser for the GNOME desktop environment
+
+    # Productivity Tools
+    libreoffice-fresh # A powerful office suite (fresh version)
+
     # Fonts
     noto-fonts
     noto-fonts-emoji
@@ -65,8 +76,7 @@
     bashInteractive
     prettierd
 
-    # Graphics and Media
-    gimp # GNU Image Manipulation Program
+    # lua-language-server <- doesn't work, or at least, vscodes lua extension fails to execute it
 
     dconf
     starship # The minimal, blazing-fast, and infinitely customizable prompt for any shell

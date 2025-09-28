@@ -18,6 +18,8 @@ require("lazy").setup({
   -- Core LazyVim (this is what provides lazyvim.plugins)
   { "LazyVim/LazyVim", import = "lazyvim.plugins" },
 
+  { import = "lazyvim.plugins.extras" },
+
     -- Your custom plugins
     {
       "neovim/nvim-lspconfig",
@@ -25,7 +27,6 @@ require("lazy").setup({
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
-      "nvimtools/none-ls.nvim",
       "nvim-treesitter/nvim-treesitter",
     },
 
