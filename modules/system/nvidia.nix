@@ -14,6 +14,24 @@
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = [ "nvidia" ];
 
+  # From ChatGPT:
+  # The "nvidia.NVreg_EnablePCIeGen3=0" kernel parameter is crucial — it prevents issues on
+  # certain motherboards (especially with Z690) where Gen 3/Gen 4 PCIe instability can cause
+  # "fallen off the bus" errors.
+  # nvidia.NVreg_EnablePCIeGen3=0 → disables NVIDIA’s Gen3 fallback quirk.
+  # pcie_aspm=off → disables Active State Power Management, which often helps with stability on
+  boot.kernelParams = [
+    "nvidia.NVreg_EnablePCIeGen3=0"
+    "pcie_aspm=off"
+  ];
+
+  # PreserveVideoMemoryAllocations=1 → helps avoid crashes on resume/suspend.
+  # EnableMSI=1 → uses Message Signaled Interrupts, usually more stable on modern chipsets.
+  boot.extraModprobeConfig = ''
+    options nvidia NVreg_PreserveVideoMemoryAllocations=1
+    options nvidia NVreg_EnableMSI=1
+  '';
+
   hardware.nvidia = {
 
     # Modesetting is required.
@@ -43,5 +61,6 @@
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.stable;
+
   };
 }
