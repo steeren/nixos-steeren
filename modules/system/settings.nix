@@ -2,15 +2,24 @@
 #
 # Configures basic system-wide settings such as time,
 # internationalization (i18n), and console behavior.
-{ config, pkgs, specialArgs, ... }: # Added hostname to arguments
 {
-  nixpkgs.config.allowUnfree = true;
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-    download-buffer-size = 524288000;
-    http-connections = 100;
-    max-jobs = "auto";
-  };
+  config,
+  pkgs,
+  specialArgs,
+  ...
+}:
+{
+  ## Declared now in Commons/default.nix
+  # nixpkgs.config.allowUnfree = true;
+  # nix.settings = {
+  #   experimental-features = [
+  #     "nix-command"
+  #     "flakes"
+  #   ];
+  #   download-buffer-size = 524288000;
+  #   http-connections = 100;
+  #   max-jobs = "auto";
+  # };
 
   # Set your time zone.
   time.timeZone = "Europe/Vienna";
@@ -32,12 +41,12 @@
 
   # Configure keymap in X11
   services.xserver.xkb = {
-    layout = "ch";
-    variant = "de_nodeadkeys";
+    layout = "at";
+    variant = "nodeadkeys";
   };
 
   # Configure console keymap
-  console.keyMap = "sg";
+  # console.keyMap = "de";
 
   # Set the system's hostname using the value passed from flake.nix
   networking.hostName = specialArgs.hostname; # Use the passed hostname argument
@@ -45,7 +54,7 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-  
+
   hardware.bluetooth.enable = true;
 
   # Enable sound with pipewire.
@@ -66,13 +75,14 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
-  
-  programs.zsh.enable = true;  
+
+  # Enable the OpenSSH daemon.
+  services.openssh.enable = true;
+
+  programs.zsh.enable = true;
 
   networking.firewall.enable = false;
 
   services.gvfs.enable = true;
-
-  # services.flatpak.enable = true;
 
 }

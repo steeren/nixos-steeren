@@ -18,7 +18,7 @@
     }:
     {
       # replace <your-hostname> with your actual hostname
-      nixosConfigurations.${specialArgs.username} = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.${specialArgs.hostname} = nixpkgs.lib.nixosSystem {
         # ...
         modules = [
           # ...

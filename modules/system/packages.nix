@@ -23,7 +23,6 @@
     which
     unzip
     direnv
-    flatpak
     dconf
     jq
     rsync

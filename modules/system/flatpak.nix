@@ -7,6 +7,7 @@
 
 {
   services.flatpak.enable = true;
+  services.flatpak.packages = [ "io.mrarm.mcpelauncher" ];
   systemd.services.flatpak-repo = {
     wantedBy = [ "multi-user.target" ];
     path = [ pkgs.flatpak ];

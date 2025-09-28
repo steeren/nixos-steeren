@@ -10,6 +10,7 @@
   };
 
   config = lib.mkIf config.minecraft.enable {
-    flatpak.packages = [ "io.mrarm.mcpelauncher" ];
+    services.flatpak.enable = true;
+    services.flatpak.packages = [ "io.mrarm.mcpelauncher" ];
   };
 }

@@ -17,6 +17,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+
   };
 
   outputs =
@@ -25,22 +27,24 @@
       nixpkgs,
       home-manager,
       nixos-hardware,
+      nix-flatpak,
       # nvf,
       ...
-    }:
+    }@inputs:
     let
-      hostname = "p2-nixos";
+      inherit (self) outputs;
       system = "x86_64-linux";
       stateVersion = "25.05";
       secrets = import ./secrets.nix;
     in
     {
-      nixosConfigurations."${hostname}" = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.lian-li = nixpkgs.lib.nixosSystem {
         system = system;
 
         specialArgs = {
+          inherit inputs outputs;
           # These are NixOS system-wide specialArgs, available to all NixOS modules
-          hostname = hostname;
+          hostname = "lian-li";
           system = system;
           stateVersion = stateVersion;
 
@@ -56,16 +60,15 @@
           {
             system.stateVersion = stateVersion; # Did you read the comment?
           }
-          nixos-hardware.nixosModules.lenovo-thinkpad-p1
+
+          nix-flatpak.nixosModules.nix-flatpak
+
+          ./modules/hosts/lian-li
+
+          # nixos-hardware.nixosModules.lenovo-thinkpad-p1
           # Import the Home Manager NixOS module first
           home-manager.nixosModules.home-manager
-
-          ./modules/system.nix
-
-          # nvf.nixosModules.default # <— THIS wires NVF in
           ./modules/home.nix
-          ./modules/profiles/laptop.nix
-          # ./modules/profiles/desktop.nix
 
           (
             { ... }:
@@ -83,9 +86,6 @@
               gc.keepSystemGenerations = 5;
               gc.keepDays = 7;
               gc.pruneUserProfiles = true;
-
-              # flatpak.enable = true;
-              # minecraft.enable = true;
             }
           )
         ];

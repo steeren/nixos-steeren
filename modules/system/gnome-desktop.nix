@@ -42,7 +42,7 @@ in
   environment.systemPackages =
     with pkgs;
     [
-      displaylink
+      # displaylink
       gnome-tweaks
       dconf-editor
       gnome-extension-manager
