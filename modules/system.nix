@@ -17,7 +17,7 @@
 
     # services
     ./system/services/docker.nix
-    # ./system/services/displaylink.nix
+
     ./system/services/gc.nix
 
     # apps/tools

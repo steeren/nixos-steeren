@@ -54,12 +54,11 @@
 
     # services
     ../../system/services/docker.nix
-    # ../../system/services/displaylink.nix
     ../../system/services/gc.nix
 
     # apps/tools
     # ../../system/apps/playwright.nix
     ../../system/flatpak.nix
-    # ../../system/apps/minecraft.nix
+    ../../system/apps/minecraft.nix
   ];
 }

@@ -38,57 +38,107 @@
       secrets = import ./secrets.nix;
     in
     {
-      nixosConfigurations.lian-li = nixpkgs.lib.nixosSystem {
-        system = system;
+      nixosConfigurations = {
 
-        specialArgs = {
-          inherit inputs outputs;
-          # These are NixOS system-wide specialArgs, available to all NixOS modules
-          hostname = "lian-li";
+        lian-li = nixpkgs.lib.nixosSystem {
           system = system;
-          stateVersion = stateVersion;
 
-          # Secrets
-          username = secrets.username;
-          passwordHash = secrets.passwordHash;
-          gitUseremail = secrets.gitUseremail;
-          gitUsername = secrets.gitUsername;
+          specialArgs = {
+            inherit inputs outputs;
+            # These are NixOS system-wide specialArgs, available to all NixOS modules
+            hostname = "lian-li";
+            system = system;
+            stateVersion = stateVersion;
+
+            # Secrets
+            username = secrets.username;
+            passwordHash = secrets.passwordHash;
+            gitUseremail = secrets.gitUseremail;
+            gitUsername = secrets.gitUsername;
+          };
+
+          modules = [
+            # System state version
+            {
+              system.stateVersion = stateVersion; # Did you read the comment?
+            }
+            nix-flatpak.nixosModules.nix-flatpak
+            ./modules/hosts/lian-li
+            # nixos-hardware.nixosModules.lenovo-thinkpad-p1
+            # Import the Home Manager NixOS module first
+            home-manager.nixosModules.home-manager
+            ./modules/home.nix
+
+            (
+              { ... }:
+              {
+                shell.enable = true;
+                shell.aliases = {
+                  nix-re-bld = "sudo nix flake update && sudo nixos-rebuild switch --flake .";
+                };
+                docker.enable = true;
+                # playwrightSystem.enable = true;
+                gc.enable = true;
+                gc.keepSystemGenerations = 5;
+                gc.keepDays = 7;
+                gc.pruneUserProfiles = true;
+              }
+            )
+          ];
         };
 
-        modules = [
-          # System state version
-          {
-            system.stateVersion = stateVersion; # Did you read the comment?
-          }
+        toy5 = nixpkgs.lib.nixosSystem {
+          system = system;
 
-          nix-flatpak.nixosModules.nix-flatpak
+          specialArgs = {
+            inherit inputs outputs;
+            # These are NixOS system-wide specialArgs, available to all NixOS modules
+            hostname = "toy5";
+            system = system;
+            stateVersion = stateVersion;
 
-          ./modules/hosts/lian-li
+            # Secrets
+            username = secrets.username;
+            passwordHash = secrets.passwordHash;
+            gitUseremail = secrets.gitUseremail;
+            gitUsername = secrets.gitUsername;
+          };
 
-          # nixos-hardware.nixosModules.lenovo-thinkpad-p1
-          # Import the Home Manager NixOS module first
-          home-manager.nixosModules.home-manager
-          ./modules/home.nix
-
-          (
-            { ... }:
+          modules = [
+            # System state version
             {
-              shell.enable = true;
-              shell.aliases = {
-                nix-re-bld = "sudo nix flake update && sudo nixos-rebuild switch --flake .";
-              };
-
-              docker.enable = true;
-
-              # playwrightSystem.enable = true;
-
-              gc.enable = true;
-              gc.keepSystemGenerations = 5;
-              gc.keepDays = 7;
-              gc.pruneUserProfiles = true;
+              system.stateVersion = stateVersion; # Did you read the comment?
             }
-          )
-        ];
+
+            nix-flatpak.nixosModules.nix-flatpak
+
+            ./modules/hosts/toy5
+
+            # nixos-hardware.nixosModules.lenovo-thinkpad-p1
+            # Import the Home Manager NixOS module first
+            home-manager.nixosModules.home-manager
+            ./modules/home.nix
+
+            (
+              { ... }:
+              {
+                shell.enable = true;
+                shell.aliases = {
+                  nix-re-bld = "sudo nix flake update && sudo nixos-rebuild switch --flake .";
+                };
+
+                docker.enable = true;
+
+                # playwrightSystem.enable = true;
+
+                gc.enable = true;
+                gc.keepSystemGenerations = 5;
+                gc.keepDays = 7;
+                gc.pruneUserProfiles = true;
+              }
+            )
+          ];
+        };
       };
     };
 }

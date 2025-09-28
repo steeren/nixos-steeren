@@ -9,7 +9,8 @@
 {
   imports = [
     ../common
-    ./hardware-thinkpad-p1.nix
+    ./hardware-p1.nix
+    ../../system/services/displaylink.nix
     ./laptop.nix
   ];
 }
