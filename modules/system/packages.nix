@@ -32,6 +32,7 @@
     flameshot # Screenshot tool
     fzf
     bat # A cat(1) clone with syntax highlighting and Git integration
+    stow
     pciutils # For `lspci` command to list PCI devices
     lshw # For `lshw` command to list hardware information
 
@@ -62,6 +63,7 @@
     # chromium        # Open-source base for Chrome
     tor-browser
     thunderbird
+    ticktick
 
     obsidian
 

@@ -4,63 +4,62 @@
   pkgs,
   ...
 }:
+
 {
-
   # Enable OpenGL
-  hardware.graphics = {
-    enable = true;
-  };
+  hardware.graphics.enable = true;
 
-  # Load nvidia driver for Xorg and Wayland
+  # Load NVIDIA driver for Xorg and Wayland
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  # From ChatGPT:
-  # The "nvidia.NVreg_EnablePCIeGen3=0" kernel parameter is crucial — it prevents issues on
-  # certain motherboards (especially with Z690) where Gen 3/Gen 4 PCIe instability can cause
-  # "fallen off the bus" errors.
-  # nvidia.NVreg_EnablePCIeGen3=0 → disables NVIDIA’s Gen3 fallback quirk.
-  # pcie_aspm=off → disables Active State Power Management, which often helps with stability on
+  hardware.nvidia = {
+    # Required for Wayland + X11 hybrid support
+    modesetting.enable = true;
+
+    # Disable NVIDIA's experimental power management (causes suspend issues)
+    powerManagement.enable = true;
+    powerManagement.finegrained = false;
+
+    # Proprietary NVIDIA driver (Ampere cards run best with this)
+    open = false;
+
+    # NVIDIA settings utility
+    nvidiaSettings = true;
+
+    # Stable driver package
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
+  };
+
+  # Kernel parameters
   boot.kernelParams = [
+    # NVIDIA: keep VRAM across suspend (required for stable resume)
+    "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+
+    # NVIDIA DRM modesetting (required for Wayland, also safer for X11)
+    "nvidia-drm.modeset=1"
+
+    # Work around PCIe resume flakiness on some Z690/NVIDIA setups
     "nvidia.NVreg_EnablePCIeGen3=0"
-    "pcie_aspm=off"
+
+    # (Optional) Disable split lock detection (sometimes causes false kernel crashes)
+    "split_lock_detect=off"
+
+    # (Optional) Force suspend to deep sleep (S3) instead of light sleep
+    "mem_sleep_default=deep"
   ];
 
-  # PreserveVideoMemoryAllocations=1 → helps avoid crashes on resume/suspend.
-  # EnableMSI=1 → uses Message Signaled Interrupts, usually more stable on modern chipsets.
+  # Extra NVIDIA driver options for stability
   boot.extraModprobeConfig = ''
     options nvidia NVreg_PreserveVideoMemoryAllocations=1
     options nvidia NVreg_EnableMSI=1
   '';
 
-  hardware.nvidia = {
-
-    # Modesetting is required.
-    modesetting.enable = true;
-
-    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-    # Enable this if you have graphical corruption issues or application crashes after waking
-    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
-    # of just the bare essentials.
-    powerManagement.enable = false;
-
-    # Fine-grained power management. Turns off GPU when not in use.
-    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-    powerManagement.finegrained = false;
-
-    # Use the NVidia open source kernel module (not to be confused with the
-    # independent third-party "nouveau" open source driver).
-    # Support is limited to the Turing and later architectures. Full list of
-    # supported GPUs is at:
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
-    # Only available from driver 515.43.04+
-    open = false;
-
-    # Enable the Nvidia settings menu,
-    # accessible via `nvidia-settings`.
-    nvidiaSettings = true;
-
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-
+  # Wayland support tweaks
+  environment.sessionVariables = {
+    # GBM is the preferred backend for modern Wayland compositors
+    GBM_BACKEND = "nvidia-drm";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    __GL_GSYNC_ALLOWED = "0";
+    __GL_VRR_ALLOWED = "0";
   };
 }

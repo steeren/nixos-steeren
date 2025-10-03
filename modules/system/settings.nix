@@ -52,10 +52,20 @@
   networking.hostName = specialArgs.hostname; # Use the passed hostname argument
   networking.networkmanager.enable = true;
 
+  # Enable the NTP client to maintain system time.
+  services.ntp.enable = true;
+
+  # Enable Intel microcode updates (for Intel CPUs).
+  hardware.cpu.intel.updateMicrocode = true;
+  hardware.bluetooth.enable = true;
+
+  # Enable firmware updates via the fwupd service.
+  services.fwupd.enable = true;
+  # Enable periodic TRIM for SSDs.
+  services.fstrim.enable = true;
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
-
-  hardware.bluetooth.enable = true;
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;

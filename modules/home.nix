@@ -30,7 +30,9 @@ in
         # commented out monitors because its always changing (by the system, then updates fail)
         # ./home/laptop/monitors.nix
 
-        ./home/apps/neovim
+        # Right now LazyVim is simply installed, but not configured in a submodule
+        # ./home/apps/neovim
+        ./home/apps/lazyvim
         ./home/dconf.nix
       ];
 
