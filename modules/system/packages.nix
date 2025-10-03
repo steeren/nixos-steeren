@@ -32,6 +32,8 @@
     flameshot # Screenshot tool
     fzf
     bat # A cat(1) clone with syntax highlighting and Git integration
+    pciutils # For `lspci` command to list PCI devices
+    lshw # For `lshw` command to list hardware information
 
     # Graphics and Media
     gimp # GNU Image Manipulation Program

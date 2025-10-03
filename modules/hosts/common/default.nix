@@ -56,6 +56,8 @@
     ../../system/services/docker.nix
     ../../system/services/gc.nix
 
+    ../../system/virt-qemu.nix
+
     # apps/tools
     # ../../system/apps/playwright.nix
     ../../system/flatpak.nix
