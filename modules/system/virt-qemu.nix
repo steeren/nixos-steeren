@@ -14,6 +14,7 @@
     spice-protocol
     win-virtio
     win-spice
+    virtiofsd
     # adwaita-icon-theme
   ];
 
@@ -22,6 +23,10 @@
     libvirtd = {
       enable = true;
       qemu = {
+        package = pkgs.qemu_kvm;
+
+        vhostUserPackages = [ pkgs.virtiofsd ];
+
         # Enable TPM 2.0 support
         swtpm.enable = true;
 
