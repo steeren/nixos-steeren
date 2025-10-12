@@ -29,6 +29,12 @@ in
       extraGSettingsOverrides = ''
         [org.gnome.mutter]
         experimental-features=['scale-monitor-framebuffer']
+
+        [org.gnome.settings-daemon.plugins.power]
+        sleep-inactive-ac-type='suspend'
+        sleep-inactive-ac-timeout=3600
+        sleep-inactive-battery-type='suspend'
+        sleep-inactive-battery-timeout=3600
       '';
     };
   };

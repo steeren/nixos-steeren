@@ -46,6 +46,7 @@
 
   imports = [
     ../../system/boot.nix
+    ../../system/logind.nix
     ../../system/gnome-desktop.nix
     ../../system/packages.nix
     ../../system/settings.nix

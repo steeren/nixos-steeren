@@ -17,7 +17,7 @@
     modesetting.enable = true;
 
     # Disable NVIDIA's experimental power management (causes suspend issues)
-    powerManagement.enable = true;
+    powerManagement.enable = false;
     powerManagement.finegrained = false;
 
     # Proprietary NVIDIA driver (Ampere cards run best with this)
