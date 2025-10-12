@@ -83,6 +83,13 @@
     #media-session.enable = true;
   };
 
+  # Configure Printer Discoverability
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 
