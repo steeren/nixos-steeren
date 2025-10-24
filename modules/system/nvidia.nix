@@ -17,11 +17,11 @@
     modesetting.enable = true;
 
     # Disable NVIDIA's experimental power management (causes suspend issues)
-    powerManagement.enable = false;
+    powerManagement.enable = true;
     powerManagement.finegrained = false;
 
     # Proprietary NVIDIA driver (Ampere cards run best with this)
-    open = false;
+    open = true;
 
     # NVIDIA settings utility
     nvidiaSettings = true;
@@ -34,7 +34,7 @@
   boot.kernelParams = [
     # NVIDIA: keep VRAM across suspend (required for stable resume)
     "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
-
+    #
     # NVIDIA DRM modesetting (required for Wayland, also safer for X11)
     "nvidia-drm.modeset=1"
 
@@ -50,6 +50,7 @@
 
   # Extra NVIDIA driver options for stability
   boot.extraModprobeConfig = ''
+    # this line may be preventing suspend working
     options nvidia NVreg_PreserveVideoMemoryAllocations=1
     options nvidia NVreg_EnableMSI=1
   '';
