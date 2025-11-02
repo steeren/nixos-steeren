@@ -32,7 +32,8 @@ in
 
         # Right now LazyVim is simply installed, but not configured in a submodule
         # ./home/apps/neovim
-        ./home/apps/lazyvim
+        # ./home/apps/lazyvim
+        ./home/apps/lazyvim-straight
         ./home/dconf.nix
       ];
 

@@ -35,6 +35,7 @@
     stow
     pciutils # For `lspci` command to list PCI devices
     lshw # For `lshw` command to list hardware information
+    p7zip # 7-Zip file archiver with high compression ratio
 
     # Graphics and Media
     gimp # GNU Image Manipulation Program
@@ -43,6 +44,7 @@
     ffmpeg # A complete, cross-platform solution to record, convert and stream audio and video
     imagemagick # A software suite to create, edit, compose, or convert bitmap images
     gthumb # An image viewer and browser for the GNOME desktop environment
+    anki # A powerful, intelligent flashcard program
 
     # Productivity Tools
     libreoffice-fresh # A powerful office suite (fresh version)
